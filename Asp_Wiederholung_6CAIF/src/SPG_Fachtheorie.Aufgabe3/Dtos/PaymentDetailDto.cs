@@ -6,5 +6,5 @@
         List<PaymentItemDto> PaymentItems);
 
     public record PaymentItemDto(
-        string ArticleName, int Amount, decimal Price);
+        string ArticleName, int Amount, decimal Price, DateTime? LastUpdated);
 }

@@ -57,7 +57,7 @@ namespace SPG_Fachtheorie.Aufgabe3.Controllers
                     p.CashDesk.Number, p.PaymentType.ToString(),
                     p.PaymentItems
                         .Select(pi => new PaymentItemDto(
-                            pi.ArticleName, pi.Amount, pi.Price))
+                            pi.ArticleName, pi.Amount, pi.Price, null))
                         .ToList()))
                 .FirstOrDefault();
             if (payment is null) return NotFound();
