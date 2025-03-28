@@ -1,22 +1,20 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
-public class UpdateConfirmedCommand : IValidatableObject
+public class UpdatePaymentItemCommand
 {
-    [Required]
-    public DateTime Confirmed { get; set; }
+    public int Id { get; set; }
+    public string ArticleName { get; set; }
+    public int Amount { get; set; }
+    public decimal Price { get; set; }
+    public int PaymentId { get; set; }
+    public DateTime? LastUpdated { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        var now = DateTime.Now;
-        var maxAllowedFutureTime = now.AddMinutes(1);
-
-        if (Confirmed > maxAllowedFutureTime)
-        {
-            yield return new ValidationResult(
-                $"The confirmed date must not be more than 1 minute in the future. Current time: {now}, provided: {Confirmed}",
-                new[] { nameof(Confirmed) });
-        }
+        if (Id <= 0) yield return new ValidationResult("Id must be greater than 0");
+        if (string.IsNullOrWhiteSpace(ArticleName)) yield return new ValidationResult("ArticleName is required");
+        if (Amount <= 0) yield return new ValidationResult("Amount must be greater than 0");
+        if (Price <= 0) yield return new ValidationResult("Price must be greater than 0");
+        if (PaymentId <= 0) yield return new ValidationResult("PaymentId must be greater than 0");
     }
 }
