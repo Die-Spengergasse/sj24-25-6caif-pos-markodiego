@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SPG_Fachtheorie.Aufgabe1.Infrastructure;
-using System.Runtime.InteropServices.Marshalling;
 using SPG_Fachtheorie.Aufgabe1.Services;
+using System.Runtime.InteropServices.Marshalling;
 
 public class Program
 {
@@ -13,17 +13,12 @@ public class Program
         {
             opt.UseSqlite("DataSource=cash.db");
         });
+        builder.Services.AddScoped<EmployeeService>();
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
-
-        builder.Services.AddControllers();
-        builder.Services.AddScoped<PaymentService>();
-        builder.Services.AddDbContext<AppointmentContext>(options =>
-    options.UseSqlite("Data Source=cash.db"));
-
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
